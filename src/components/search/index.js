@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 function SearchBar() {
   const [query, setQuery] = useState('');
+  const [movieData, setMovieData] = useState(null);
   const apiKey = '7fc669a1';
 
   const handleInputChange = (event) => {
@@ -14,26 +15,13 @@ function SearchBar() {
 
     fetch(url)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      const movieTitle = data.Title;
-      const moviePoster = data.Poster;
-      const movieYear = data.Year;
-      const moviePlot = data.Plot;
-      const movieTitleEl = document.getElementById('movie-title');
-      const moviePosterEl = document.getElementById('movie-poster');
-      const movieYearE1 = document.getElementById('movie-year');
-      const moviePlotE1 = document.getElementById('movie-plot')
-      movieTitleEl.textContent = movieTitle;
-      movieYearE1.textContent = movieYear;
-      moviePosterEl.setAttribute('src', moviePoster);
-      moviePlotE1.textContent = moviePlot;
-    })
+    .then(data => setMovieData(data))
     .catch(error => console.error(error));
   console.log(`Searching for ${query}...`);
-  };
+};
 
-  return (
+return (
+  <div>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -43,8 +31,15 @@ function SearchBar() {
       />
       <button type="submit">Search</button>
     </form>
-    
-  );
+    {movieData && (
+      <div>
+        <h2>{movieData.Title}</h2>
+        <img src={movieData.Poster} alt={movieData.Title} />
+        <p>{movieData.Plot}</p>
+      </div>
+    )}
+  </div>
+);
 }
 
 export default SearchBar
