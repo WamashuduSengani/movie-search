@@ -1,0 +1,58 @@
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #333;
+  padding: 5px;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+button[type="submit"] {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-results img {
+  max-width: 300px;
+  max-height: 400px;
+  margin-bottom: 10px;
+}
+
+.search-results p {
+  font-size: 14px;
+}

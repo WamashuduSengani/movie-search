@@ -7,9 +7,6 @@ const App = () => {
     <>
       <BrowserRouter>
         <SearchBar></SearchBar>
-        <Routes>
-        {/* <Route path="/" element={<SearchBar />} /> */}
-        </Routes>
       </BrowserRouter>
     </>
   )
