@@ -36,7 +36,7 @@ return (
       {movieData && (
       <div className="search-results">
       <h2>{movieData.Title}</h2>
-      <img src={movieData.Poster} alt={movieData.Title} />
+      <img src={movieData.Poster} alt={movieData.Title}/>
       <p>{movieData.Plot}</p>
     </div>
       )}
