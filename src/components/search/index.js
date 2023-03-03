@@ -6,6 +6,7 @@ function SearchBar() {
   const [movieData, setMovieData] = useState(null);
   const apiKey = '7fc669a1';
   const [latestMovies, setLatestMovies] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -24,45 +25,48 @@ function SearchBar() {
 };
 
 useEffect(() => {
-
-  const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie`;
+  const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie&y=2023`;
 
   fetch(url)
     .then(response => response.json())
-    .then(data => setLatestMovies(data.Search))
+    .then(data => {
+      const sortedMovies = data.Search.sort((a, b) => b.Year - a.Year);
+      setLatestMovies(sortedMovies);
+      setTotalResults(data.totalResults);
+    })
     .catch(error => console.error(error));
 }, []);
 
 return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Search movie..."
-          value={query}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Search</button>
-      </form>
-      {movieData && (
-      <div className="search-results">
-      <h2>{movieData.Title}</h2>
-      <img src={movieData.Poster} alt={movieData.Title}/>
-      <p>{movieData.Plot}</p>
-    </div>
-      )}
+  <div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Search movie..."
+        value={query}
+        onChange={handleInputChange}
+      />
+      <button type="submit">Search</button>
+    </form>
 
-      <div className="latest-movies">
-        {latestMovies.map(movie => (
-          <div className="movie-tile" key={movie.imdbID}>
-            <img src={movie.Poster} alt={movie.Title} />
-            <h3>{movie.Title}</h3>
-            <p>{movie.Year}</p>
-          </div>
-        ))}
+    {movieData && (
+      <div className="search-results">
+        <h2>{movieData.Title}</h2>
+        <img src={movieData.Poster} alt={movieData.Title} />
+        <p>{movieData.Plot}</p>
       </div>
+    )}
+
+    <div className="latest-movies">
+      {latestMovies.map(movie => (
+        <div className="movie-tile" key={movie.imdbID}>
+          <img src={movie.Poster} alt={movie.Title} width="100" />
+          <h3 title={movie.Title}>{movie.Title.slice(0, 30) + '...'}</h3>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
 }
 
 export default SearchBar;
