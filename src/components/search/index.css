@@ -56,3 +56,37 @@ p {
 .search-results p {
   font-size: 14px;
 }
+
+.movie-tile {
+  display: inline-block;
+  margin: 1rem;
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.movie-tile img {
+  width: 100%;
+  height: auto;
+}
+
+.movie-tile h3 {
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.movie-tile p {
+  margin: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #666;
+}
+
+.latest-movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
