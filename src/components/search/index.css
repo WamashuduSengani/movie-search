@@ -90,3 +90,21 @@ p {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.movie-tile img {
+  transition: transform 0.2s ease-in-out;
+}
+
+.movie-tile img:hover {
+  transform: scale(1.1);
+}
+
+.movie-tile h3 {
+  transition: transform 0.2s ease-in-out;
+}
+
+.movie-tile:hover h3 {
+  transform: scale(1.1);
+}
+
+
