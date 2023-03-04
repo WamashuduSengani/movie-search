@@ -7,6 +7,7 @@ function SearchBar() {
   const apiKey = '7fc669a1';
   const [latestMovies, setLatestMovies] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -18,56 +19,65 @@ function SearchBar() {
 
     fetch(url)
     .then(response => response.json())
-    .then(data => setMovieData(data))
-    .catch(error => console.error(error));
-    console.log(movieData)
-  console.log(`Searching for ${query}...`);
-};
-
-useEffect(() => {
-  const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie&y=2022`;
-
-  fetch(url)
-    .then(response => response.json())
     .then(data => {
-      setLatestMovies(data.Search);
-      setTotalResults(data.totalResults);
+      setMovieData(data);
+      setShowSearchResults(true);
     })
     .catch(error => console.error(error));
-}, []);
+    console.log(`Searching for ${query}...`);
+  };
 
-return (
-  <div>
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Search movie..."
-        value={query}
-        onChange={handleInputChange}
-      />
-      <button type="submit">Search</button>
-    </form>
+  useEffect(() => {
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie&y=2022`;
 
-    {movieData && (
-      <div className="search-results">
-        <h2>{movieData.Title}</h2>
-        <img src={movieData.Poster} alt={movieData.Title} />
-        <p>{movieData.Plot}</p>
-      </div>
-    )}
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setLatestMovies(data.Search);
+        setTotalResults(data.totalResults);
+      })
+      .catch(error => console.error(error));
+  }, []);
 
-    {!movieData && (
-      <div className="latest-movies">
-        {latestMovies.map(movie => (
-          <div className="movie-tile" key={movie.imdbID}>
-            <img src={movie.Poster} alt={movie.Title} width="100" className="zoomable" />
-            <h3 title={movie.Title} className="zoomable">{movie.Title.slice(0, 30) + '...'}</h3>
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-);
+  const handleBackButtonClick = () => {
+    setMovieData(null);
+    setShowSearchResults(false);
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Search movie..."
+          value={query}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      {showSearchResults && (
+        <div className="search-results">
+          <h2>{movieData.Title}</h2>
+          <img src={movieData.Poster} alt={movieData.Title} />
+          <p>{movieData.Plot}</p>
+          <button className="back-button" onClick={handleBackButtonClick}>Back</button>
+        </div>
+      )}
+
+      {!showSearchResults && (
+        <div className="latest-movies">
+          {latestMovies.map(movie => (
+            <div className="movie-tile" key={movie.imdbID}>
+              <img src={movie.Poster} alt={movie.Title} width="100" className="zoomable" />
+              <h3 title={movie.Title} className="zoomable">{movie.Title.slice(0, 30) + '...'}</h3>
+            </div>
+          ))}
+        </div>
+      )}
+
+    </div>
+  );
 }
 
 export default SearchBar;

@@ -107,5 +107,21 @@ p {
   transform: scale(1.1);
 }
 
+.back-button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 195px;
+  right: 100px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+
 
 
