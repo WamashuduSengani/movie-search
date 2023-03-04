@@ -25,13 +25,12 @@ function SearchBar() {
 };
 
 useEffect(() => {
-  const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie&y=2023`;
+  const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=new&type=movie&y=2022`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      const sortedMovies = data.Search.sort((a, b) => b.Year - a.Year);
-      setLatestMovies(sortedMovies);
+      setLatestMovies(data.Search);
       setTotalResults(data.totalResults);
     })
     .catch(error => console.error(error));
