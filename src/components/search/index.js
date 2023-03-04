@@ -56,14 +56,16 @@ return (
       </div>
     )}
 
-    <div className="latest-movies">
-      {latestMovies.map(movie => (
-        <div className="movie-tile" key={movie.imdbID}>
-          <img src={movie.Poster} alt={movie.Title} width="100" className="zoomable" />
-          <h3 title={movie.Title} className="zoomable">{movie.Title.slice(0, 30) + '...'}</h3>
-        </div>
-      ))}
-    </div>
+    {!movieData && (
+      <div className="latest-movies">
+        {latestMovies.map(movie => (
+          <div className="movie-tile" key={movie.imdbID}>
+            <img src={movie.Poster} alt={movie.Title} width="100" className="zoomable" />
+            <h3 title={movie.Title} className="zoomable">{movie.Title.slice(0, 30) + '...'}</h3>
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 );
 }
